@@ -25,6 +25,7 @@ import { createDurableAgent } from '../durable/create-durable-agent';
 const TRACE_ID = 'trace-id-for-message';
 
 function createMockSpan(name: string, parentSpan?: any) {
+  const parentSpanId = parentSpan?.id;
   const span: Record<string, any> = {
     id: `mock-${name}-id`,
     traceId: TRACE_ID,
@@ -34,7 +35,7 @@ function createMockSpan(name: string, parentSpan?: any) {
     isInternal: false,
     isEvent: false,
     isValid: true,
-    isRootSpan: !parentSpan,
+    isRootSpan: !parentSpan && !parentSpanId,
     parent: parentSpan,
 
     end: vi.fn(),

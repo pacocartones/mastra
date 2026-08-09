@@ -279,7 +279,7 @@ export abstract class BaseSpan<TType extends SpanType = any> implements Span<TTy
 
   /** Returns `TRUE` if the span is the root span of a trace */
   get isRootSpan(): boolean {
-    return !this.parent;
+    return !this.parent && !this.parentSpanId;
   }
 
   /** Returns `TRUE` if the span is a valid span (not a NO-OP Span) */

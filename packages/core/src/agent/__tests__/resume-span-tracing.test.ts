@@ -188,6 +188,7 @@ describe('resumed AGENT_RUN span input and trace continuity', () => {
 
   function createMockSpan(type: string, parentSpan?: any) {
     spanIdCounter += 1;
+    const parentSpanId = parentSpan?.id;
     const span: Record<string, any> = {
       id: `mock-${type}-id-${spanIdCounter}`,
       traceId: 'mock-trace-id',
@@ -197,7 +198,7 @@ describe('resumed AGENT_RUN span input and trace continuity', () => {
       isInternal: false,
       isEvent: false,
       isValid: true,
-      isRootSpan: !parentSpan,
+      isRootSpan: !parentSpan && !parentSpanId,
       parent: parentSpan,
 
       end: vi.fn(),

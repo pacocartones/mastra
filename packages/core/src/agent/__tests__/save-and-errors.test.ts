@@ -1812,6 +1812,7 @@ describe('AGENT_RUN span must be ended on LLM errors', () => {
   }
 
   function createMockSpan(name: string, parentSpan?: any) {
+    const parentSpanId = parentSpan?.id;
     const span: Record<string, any> = {
       id: `mock-${name}-id`,
       traceId: 'mock-trace-id',
@@ -1821,7 +1822,7 @@ describe('AGENT_RUN span must be ended on LLM errors', () => {
       isInternal: false,
       isEvent: false,
       isValid: true,
-      isRootSpan: !parentSpan,
+      isRootSpan: !parentSpan && !parentSpanId,
       parent: parentSpan,
 
       end: vi.fn(),
